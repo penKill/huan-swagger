@@ -23,24 +23,25 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class HuanSwagger {
     @Value("${swagger.enable:true}")
     boolean enable;
-    @Value("${swagger.title:API查看器}")
+    @Value("${swagger.title:在线接口文档查看}")
     String title;
-    @Value("${swagger.description:API服务的说明，请在配置文件中说明服务的作用}")
+    @Value("${swagger.description:深圳泰乾信息科技有限公司后台接口文档}")
     String description;
-    @Value("${swagger.contact.name:huanshare}")
+    @Value("${swagger.contact.name:邓思琪}")
     String contactName;
-    @Value("${swagger.contact.url:www.huanshare.com}")
+    @Value("${swagger.contact.url:www.ftechain.com}")
     String contactUrl;
-    @Value("${swagger.contact.mail:huanshare@live.com}")
+    @Value("${swagger.contact.mail:dengsiqi@ftechain.com}")
     String contactMail;
-    @Value("${swagger.version:0.0.0}")
+    @Value("${swagger.version:0.0.1-SNAPSHOT（开发初版）}")
     String version;
 
     public HuanSwagger() {
     }
 
     @Bean
-    public Docket allApi() { if (!this.enable) {
+    public Docket allApi() {
+        if (!this.enable) {
             return (new Docket(DocumentationType.SWAGGER_2)).select().apis(RequestHandlerSelectors.none()).paths(PathSelectors.none()).build();
         } else {
             ApiInfo apiInfo = (new ApiInfoBuilder()).title(this.title).description(this.description).contact(new Contact(this.contactName, this.contactUrl, this.contactMail)).version(this.version).build();
@@ -51,7 +52,7 @@ public class HuanSwagger {
     }
 
     @Bean
-    public CorsFilter apiCrosFilter() {
+    public CorsFilter apiCrossFilter() {
         if (!this.enable) {
             return new CorsFilter(new UrlBasedCorsConfigurationSource());
         } else {
